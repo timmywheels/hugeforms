@@ -11,8 +11,10 @@ mongoose.Promise = global.Promise;mongoose.connect("mongodb://localhost:27017/da
 
 //Create database schema
 var nameSchema = new mongoose.Schema({
- firstName: String,
- lastName: String
+ first: String,
+ last: String,
+ email: String,
+ phone: String
 });
 
 //Create a model for data
@@ -23,14 +25,14 @@ app.get("/", (req, res) => {
 });
 
 //Create endpoint for form into database
-app.post("/addname", (req, res) => {
+app.post("/register", (req, res) => {
  var myData = new User(req.body);
    myData.save()
      .then(item => {
-       res.send("Name saved to database");
+       res.send("Thank you for registering!");
      })
      .catch(err => {
-       res.status(400).send("Unable to save to database");
+       res.status(400).send("There was an error, please try again.");
      });
 });
 
@@ -38,13 +40,3 @@ app.post("/addname", (req, res) => {
 app.listen(port, () => {
  console.log("Server listening on port " + port);
 });
-
-
-
-
-
-
-
-
-
-
